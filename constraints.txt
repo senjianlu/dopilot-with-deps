@@ -1,0 +1,25 @@
+# Constraints that protect the dopilot runtime while installing extra packages.
+#
+# These are intentionally narrower than some entries in requirements.txt.
+# They preserve compatibility with the base image's server/migrate/agent runtime.
+
+# dopilot pins psycopg[binary] exactly in apps/server/pyproject.toml.
+# pip constraints cannot use extras syntax, so constrain both installed
+# distributions behind psycopg[binary].
+psycopg==3.3.4
+psycopg-binary==3.3.4
+
+# dopilot currently supports SQLAlchemy 2.0.x, not 2.1+.
+sqlalchemy>=2.0,<2.1
+
+# Shared by dopilot API schemas and FastAPI runtime.
+pydantic>=2.7,<3
+
+# Shared by dopilot server/agent HTTP clients and by OpenAI-compatible clients.
+httpx>=0.27,<0.29
+
+# dopilot's agent runtime already ships Scrapy; keep the major line stable.
+scrapy>=2.13.0,<3
+
+# dopilot uses redis-py for Redis Streams. valkey is installed separately.
+redis>=5,<9

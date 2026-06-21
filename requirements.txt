@@ -1,0 +1,62 @@
+# Extra runtime dependencies for the dopilot-with-deps image.
+#
+# Lines preceded by a "[dopilot runtime-sensitive]" comment overlap with packages
+# dopilot itself uses. GitHub renders these comments in muted gray; treat them as
+# warning markers. Do not loosen or remove the matching constraints without
+# testing dopilot server, migrate, and agent startup.
+
+# [dopilot runtime-sensitive] dopilot pins psycopg[binary]==3.3.4 for reproducible
+# image builds; constraints.txt keeps this request on that validated version.
+psycopg[binary]>=3.2,<4
+
+valkey>=6.1.1
+
+# Data model
+# [dopilot runtime-sensitive] dopilot uses pydantic through FastAPI and its public
+# schemas. Keep the shared major version and run pip check after changes.
+pydantic>=2.7,<3
+beanie>=1.27,<2
+
+# Database ORM
+# [dopilot runtime-sensitive] dopilot currently supports SQLAlchemy 2.0.x.
+# constraints.txt caps this request below 2.1 even though this line is broader.
+sqlalchemy>=2.0,<3
+
+# Crawler framework
+# [dopilot runtime-sensitive] dopilot's bundled Scrapy agent also uses Scrapy.
+# Upgrades inside the 2.x line can still affect spider/runtime behavior.
+scrapy>=2.13.0
+beautifulsoup4>=4.12
+
+# HTTP requests
+requests>=2.32
+# [dopilot runtime-sensitive] dopilot server/agent and OpenAI clients both use
+# httpx. Keep the explicit <0.29 cap unless dopilot is verified with newer httpx.
+httpx>=0.27,<0.29
+Brotli>=1.1.0
+
+# Service registration and discovery
+python-consul2>=0.1.5
+
+# Message queue
+confluent-kafka>=2.14.0
+
+# Crypto
+pycryptodome>=3.20
+
+# Symbolic math
+sympy>=1.13
+
+# Cache utilities
+cachetools>=5.3
+
+# AI classification (DeepSeek / OpenAI-compatible APIs)
+openai>=1.0
+
+# Playwright
+playwright==1.42.0
+playwright-stealth>=2.0.0
+
+# Observability - page screenshot upload
+boto3>=1.34
+Pillow>=10.0
