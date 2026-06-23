@@ -16,6 +16,7 @@ valkey>=6.1.1
 # schemas. Keep the shared major version and run pip check after changes.
 pydantic>=2.7,<3
 beanie>=1.27,<2
+motor>=3.5,<4
 
 # Database ORM
 # [dopilot runtime-sensitive] dopilot currently supports SQLAlchemy 2.0.x.
